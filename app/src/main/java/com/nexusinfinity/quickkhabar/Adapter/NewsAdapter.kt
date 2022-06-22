@@ -8,11 +8,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.nexusinfinity.quickkhabar.R
 
-class NewsAdapter(var news: ArrayList<String>) : RecyclerView.Adapter<NewsViewHolder>(){
+class NewsAdapter(var news: ArrayList<String>, private val listener: OnItemClicked) : RecyclerView.Adapter<NewsViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.news_view, parent, false);
-        return NewsViewHolder(view)
+        val viewHolder = NewsViewHolder(view)
+        view.setOnClickListener {
+            listener.onClicked(news[viewHolder.adapterPosition])
+        }
+        return viewHolder
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
@@ -27,4 +31,8 @@ class NewsAdapter(var news: ArrayList<String>) : RecyclerView.Adapter<NewsViewHo
 
 class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
     val titleView : TextView = itemView.findViewById(R.id.titleView)
+}
+
+interface OnItemClicked{
+    fun onClicked(text: String);
 }
