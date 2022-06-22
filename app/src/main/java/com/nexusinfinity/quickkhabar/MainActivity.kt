@@ -8,18 +8,18 @@ import com.nexusinfinity.quickkhabar.Adapter.NewsAdapter
 
 class MainActivity : AppCompatActivity() {
 
-    private var recyclerView : RecyclerView? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        recyclerView?.layoutManager = LinearLayoutManager(this)
-        recyclerView?.setHasFixedSize(true)
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.setHasFixedSize(true)
 
         val getItems = fetchData()
         val adapter = NewsAdapter(getItems)
-        recyclerView?.adapter = adapter;
+        recyclerView.adapter = adapter;
     }
 
     private fun fetchData() : ArrayList<String> {
